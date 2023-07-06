@@ -24,13 +24,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\Data Out\2023_Memorial Park GC - Houston, TX_analysis.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>

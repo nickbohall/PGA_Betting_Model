@@ -4,13 +4,15 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 
 class IndividualStats:
     def __init__(self):
         options = Options()
-        options.headless = True  # This is to not actually open the webpage
+        options.headless = False  # This is to not actually open the webpage
         self.driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
 
     # This is a helper function to check the url and get the column headers to create the df
@@ -76,6 +78,7 @@ class IndividualStats:
         condensed_df = condensed_df.rename(columns={"AVERAGE": f"{metric} Average", "PLAYER": "player"})
         print(f"{metric} df successfully gathered")
         return condensed_df
+
 
 
 

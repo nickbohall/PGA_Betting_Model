@@ -1,22 +1,25 @@
 import pandas as pd
 import numpy as np
+import requests
+import time
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-import time
+
+
 from player_mapping import PlayerMap
 
-URL = "https://www.thelines.com/odds/golf/"
 
+CURRENT_ODDS = "https://www.thelines.com/odds/golf/"
 
 class BettingInfo:
     def __init__(self):
         options = Options()
         options.headless = True  # This is to not actually open the webpage
         self.driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
-        self.driver.get(URL)
         self.player_list = []
         self.odds_list = []
         self.averaged_odds_list = []
@@ -29,7 +32,7 @@ class BettingInfo:
         time.sleep(5)
 
         # Find all the players first and put them in a list
-
+        self.driver.get(CURRENT_ODDS)
         players = self.driver.find_elements(By.CSS_SELECTOR, ".metabet-futures-board-entities div span")
 
         for player in players:
@@ -41,7 +44,7 @@ class BettingInfo:
         time.sleep(5)
 
         # Find the odds and put them in a list. Some cleaning and Data In manip had to be done
-
+        self.driver.get(CURRENT_ODDS)
         odds = self.driver.find_elements(By.CSS_SELECTOR, ".metabet-futures-board-lines div")
 
         odds_clean_list = []

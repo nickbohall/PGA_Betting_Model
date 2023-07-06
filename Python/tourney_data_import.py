@@ -26,9 +26,11 @@ class DataImport:
         return self.data.course.unique()
 
     def get_raw_data(self):
-        self.data = pd.read_csv("../Data In/2015-2022 raw data tourneylevel regression.csv")
-        self.data["score"] = self.data.strokes - self.data.hole_par
-        return self.data
+        data = pd.read_csv("../Data In/2015-2022 raw data tourneylevel regression.csv")
+        data["score"] = data.strokes - data.hole_par
+        data['year'] = pd.to_datetime(data["date"]).dt.year
+        data["date"] = pd.to_datetime(data["date"]).dt.date
+        return data
 
     # This function is creating a new df at a tournament level with the n_rounds, top score, and winner
     def get_tourn_df(self):
@@ -41,3 +43,13 @@ class DataImport:
         df = df.merge(winner_df, left_index=True, right_index=True)\
             .rename(columns={'player': 'winner', 'score': 'win_score', 'n_rounds': 'tourn_rounds'})
         return df
+
+    def get_historical_odds(self):
+        path = "../Data In/pga_historical_odds.csv"
+        data = pd.read_csv(path)
+        df = data[pd.to_numeric(data['odds'], errors='coerce').notnull()]
+        df['odds'] = pd.to_numeric(df['odds'])
+        df['year'] = pd.to_datetime(df["date"]).dt.year
+        return df
+
+

@@ -8,16 +8,16 @@ from tourney_data_import import DataImport
 from analysis import Analysis
 
 # NEED TO CHANGE THESE ACCORDINGLY
-current_tournament = "The Memorial Tournament pres. by Nationwide"
-current_course = "Muirfield Village Golf Club - Dublin, OH"
+current_tournament = "John Deere Classic"
+current_course = "TPC Deere Run - Silvis, IL"
 current_season = "2023"
 
 # ------------------------------------ GET TOURNEY AND COURSE LIST ------------------------------------#
 
 # Uncomment this when updating the static csv Data In
-# data_in = DataImport()
-# print(data_in.tourney_list())
-# print(data_in.course_list())
+data_in = DataImport()
+print(data_in.tourney_list())
+print(data_in.course_list())
 
 # ------------------------------------ SET URLS ------------------------------------#
 
@@ -73,13 +73,8 @@ merged_df = player_list \
     .merge(SG_PUT_df, how="left") \
     .merge(tourney_scores, how="left") \
     .merge(course_scores, how="left") \
-    .merge(last_season_score, how="left") \
-    .merge(current_tourney_odds, how="left")
+    .merge(last_season_score, how="left")
+    # .merge(current_tourney_odds, how="left")
 
 merged_df.to_csv(f"../Data out/{current_season}_{current_tournament}_data.csv")
-
-# ------------------------------------ ANALYSIS ------------------------------------#
-
-analysis = Analysis()
-analysis.get_analysis_df(merged_df,current_season,current_tournament)
 
