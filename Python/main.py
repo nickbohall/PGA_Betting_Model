@@ -7,9 +7,10 @@ from tourney_finishes import TourneyFinishes
 from tourney_data_import import DataImport
 from analysis import Analysis
 
-# NEED TO CHANGE THESE ACCORDINGLY
-current_tournament = "John Deere Classic"
-current_course = "TPC Deere Run - Silvis, IL"
+# NEED TO CHANGE THESE ACCORDINGLY3
+
+current_tournament = "Tour Championship"
+current_course = "East Lake Golf Club - Atlanta, GA"
 current_season = "2023"
 
 # ------------------------------------ GET TOURNEY AND COURSE LIST ------------------------------------#
